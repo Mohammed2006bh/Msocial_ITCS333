@@ -1,0 +1,1057 @@
+/* Msocial_ITCS333 - global design system.
+   Tokens below are derived from the hand-drawn design (Msocial Design.pdf)
+   and the Figma-exported component styles (icon buttons, overlay badge,
+   floating action button). Additional polish adapted from Uiverse.io:
+   - shreyasm-dev/bright-rat-5   (neu checkbox)
+   - mobinkakei/great-skunk-8    (neu switch)
+   - Jack17432/shaggy-earwig-15  (hamburger menu)
+   - codebykay101/ugly-lion-23   (glass card)
+   - adamgiebl/good-mouse-67     (neu button)
+   - EddyBel/rare-baboon-42      (glow search input)
+*/
+
+:root {
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 22px;
+    --shadow-icon: 0px 0px 4px rgba(0, 0, 0, 0.25);
+    --shadow-fab: 0px 5px 5px rgba(0, 0, 0, 0.25);
+    --overlay-badge-bg: rgba(41, 0, 0, 0.46);
+    --accent: #4f46e5;
+    --accent-hover: #4338ca;
+}
+
+html[data-theme="light"] {
+    --surface: #ffffff;
+    --surface-alt: #f4f4f7;
+    --text: #000000;
+    --border-color: #6F6F6F;
+    /* neumorphism / glass tokens */
+    --neu-bg: #e0e0e0;
+    --neu-shadow-light: #ffffff;
+    --neu-shadow-dark: #bcbcbc;
+    --neu-text: #4d4d4d;
+    --glass-bg: rgba(255, 255, 255, 0.55);
+    --glass-border: rgba(255, 255, 255, 0.6);
+    --glass-highlight: rgba(255, 255, 255, 0.35);
+}
+
+html[data-theme="dark"] {
+    --surface: #242424;
+    --surface-alt: #1a1a1a;
+    --text: #f0f0f0;
+    --border-color: #5a5a5a;
+    /* neumorphism / glass tokens */
+    --neu-bg: #2a2a2a;
+    --neu-shadow-light: #3a3a3a;
+    --neu-shadow-dark: #1a1a1a;
+    --neu-text: #d0d0d0;
+    --glass-bg: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-highlight: rgba(255, 255, 255, 0.05);
+}
+
+html[data-theme="light"] body {
+    background-color: var(--surface-alt);
+    color: var(--text);
+}
+
+html[data-theme="dark"] body {
+    background-color: var(--surface-alt);
+    color: var(--text);
+}
+
+body {
+    margin: 0;
+    padding-top: 80px;
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: var(--accent);
+}
+
+/* ---------- Header / navigation (floating glass pill + gradient wings) ---------- */
+
+.logo-img {
+    height: 30px;
+    width: auto;
+    display: block;
+}
+
+.app-header {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    padding: 12px 0 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 30;
+    pointer-events: none;
+}
+
+.bar-wing {
+    flex: 1 1 auto;
+    min-width: 16px;
+}
+
+.bar-wing-left {
+    background: linear-gradient(to bottom, var(--surface) 0%, transparent 100%);
+}
+
+.bar-wing-right {
+    background: linear-gradient(to bottom, var(--surface) 0%, transparent 100%);
+}
+
+.bar-pill {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-icon);
+    pointer-events: auto;
+    flex-wrap: wrap;
+    max-width: calc(100vw - 32px);
+    box-sizing: border-box;
+}
+
+.bar-pill > a,
+.bar-pill > span {
+    color: inherit;
+    text-decoration: none;
+    padding: 5px 8px;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+    font-size: 13px;
+}
+
+.bar-pill > a:hover {
+    background: var(--surface-alt);
+}
+
+/* ---------- Theme switch (mobinkakei/great-skunk-8) ---------- */
+.theme-switch {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.theme-switch input {
+    display: none;
+}
+
+.theme-switch .toggle {
+    display: inline-block;
+    isolation: isolate;
+    position: relative;
+    height: 26px;
+    width: 52px;
+    border-radius: 13px;
+    overflow: hidden;
+    box-shadow: -4px -2px 6px 0px var(--neu-shadow-light),
+                4px 2px 8px 0px var(--neu-shadow-dark),
+                2px 2px 3px 0px var(--neu-shadow-dark) inset,
+                -2px -2px 3px 0px var(--neu-shadow-light) inset;
+    background: var(--neu-bg);
+    vertical-align: middle;
+}
+
+.theme-switch .indicator {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--accent);
+    transition: left 0.4s cubic-bezier(0.85, 0.05, 0.18, 1.35);
+    box-shadow: -2px -1px 3px rgba(255, 255, 255, 0.3),
+                2px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.theme-switch input:checked ~ .toggle .indicator {
+    left: 29px;
+}
+
+.theme-switch .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.header-search {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+    background: var(--glass-bg);
+    padding: 4px 8px;
+    border-radius: 22px;
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 300ms, box-shadow 300ms;
+}
+
+.header-search:focus-within {
+    box-shadow: 0 0 18px rgba(79, 70, 229, 0.35);
+}
+
+.header-search input {
+    padding: 6px 10px;
+    border-radius: 20px;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    font-size: 13px;
+    width: 140px;
+    outline: none;
+}
+
+.header-search button {
+    padding: 6px 12px;
+    border-radius: 50px;
+    border: none;
+    background: var(--accent);
+    color: #fff;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    box-shadow: inset 2px 2px 5px rgba(255, 255, 255, 0.25),
+                inset -2px -2px 5px rgba(0, 0, 0, 0.15),
+                2px 2px 5px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease-in-out;
+}
+
+.header-search button:hover {
+    background: var(--accent-hover);
+    box-shadow: inset 1px 1px 3px rgba(255, 255, 255, 0.2),
+                inset -1px -1px 3px rgba(0, 0, 0, 0.1),
+                3px 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* ---------- Hamburger menu (Jack17432/shaggy-earwig-15) ---------- */
+.hamburger-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: var(--neu-bg);
+    border: 1px solid var(--neu-bg);
+    cursor: pointer;
+    transition: all .3s;
+    box-shadow: 4px 4px 8px var(--neu-shadow-dark),
+               -4px -4px 8px var(--neu-shadow-light);
+    position: relative;
+}
+
+.hamburger-btn:hover {
+    border-color: var(--neu-shadow-light);
+}
+
+.hamburger-btn input {
+    -webkit-appearance: none;
+    display: none;
+    visibility: hidden;
+}
+
+.hamburger-btn span {
+    width: 20px;
+    height: 3px;
+    background: var(--text);
+    border-radius: 100px;
+    transition: 0.3s ease;
+}
+
+.hamburger-btn input:checked ~ span.top {
+    transform: translateY(8px) rotate(45deg);
+    width: 24px;
+}
+
+.hamburger-btn input:checked ~ span.mid {
+    transform: translateX(-10px);
+    opacity: 0;
+}
+
+.hamburger-btn input:checked ~ span.bot {
+    transform: translateY(-8px) rotate(-45deg);
+    width: 24px;
+}
+
+/* ---------- Bottom floating nav island ---------- */
+
+.bottom-nav-island {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 16px;
+    z-index: 25;
+    pointer-events: none;
+}
+
+.bottom-nav-island .bar-wing-left {
+    background: linear-gradient(to top, var(--surface) 0%, transparent 100%);
+}
+
+.bottom-nav-island .bar-wing-right {
+    background: linear-gradient(to top, var(--surface) 0%, transparent 100%);
+}
+
+.bottom-nav-island .bar-pill {
+    gap: 6px;
+    padding: 8px 12px;
+}
+
+.bottom-nav-island a {
+    color: inherit;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 50px;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 600;
+    background: var(--neu-bg);
+    box-shadow: 4px 4px 8px var(--neu-shadow-dark),
+               -4px -4px 8px var(--neu-shadow-light);
+    transition: all 0.2s ease-in-out;
+}
+
+.bottom-nav-island a:hover {
+    box-shadow: inset 2px 2px 5px var(--neu-shadow-dark),
+                inset -2px -2px 5px var(--neu-shadow-light);
+}
+
+@media (max-width: 700px) {
+    .bar-wing {
+        display: none;
+    }
+
+    .header-search input {
+        width: 100px;
+    }
+
+    .bar-pill .welcome-text {
+        display: none;
+    }
+}
+
+/* ---------- Page layout ---------- */
+
+.page-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 12px 24px 110px;
+    box-sizing: border-box;
+}
+
+/* ---------- Glass card effect (codebykay101/ugly-lion-23) ---------- */
+.glass-card,
+.auth-card,
+.form-card,
+.profile-card,
+.feed-post,
+.popup-box {
+    position: relative;
+    background: linear-gradient(var(--glass-highlight), transparent),
+                var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    box-shadow: 0 25px 25px rgba(0, 0, 0, 0.12),
+                inset 0 1px 0 var(--glass-highlight);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+}
+
+/* ---------- Neu button (adamgiebl/good-mouse-67) ---------- */
+.neu-button,
+.auth-card button[type="submit"],
+.form-card button[type="submit"],
+.profile-card button[type="submit"],
+.feed-post-actions button,
+.feed-add-comment button,
+.search-bar button {
+    border-radius: 50px;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    background: var(--accent);
+    color: #fff;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+    box-shadow: inset 3px 3px 6px rgba(255, 255, 255, 0.25),
+                inset -3px -3px 6px rgba(0, 0, 0, 0.2),
+                3px 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.neu-button:hover,
+.auth-card button[type="submit"]:hover,
+.form-card button[type="submit"]:hover,
+.profile-card button[type="submit"]:hover,
+.feed-post-actions button:hover,
+.feed-add-comment button:hover,
+.search-bar button:hover {
+    background: var(--accent-hover);
+    box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.2),
+                inset -2px -2px 4px rgba(0, 0, 0, 0.15),
+                5px 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.neu-button:active,
+.auth-card button[type="submit"]:active,
+.form-card button[type="submit"]:active,
+.profile-card button[type="submit"]:active,
+.feed-post-actions button:active,
+.feed-add-comment button:active,
+.search-bar button:active {
+    box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.2),
+                inset -4px -4px 8px rgba(255, 255, 255, 0.15);
+}
+
+/* ---------- Auth pages (Login / Register) & Create Post ---------- */
+
+.auth-page {
+    display: flex;
+    min-height: calc(100vh - 80px);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+.auth-card,
+.form-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 32px;
+    box-sizing: border-box;
+}
+
+.auth-card h2,
+.form-card h2 {
+    text-align: center;
+    margin-top: 0;
+}
+
+.auth-card form > div,
+.form-card form > div {
+    margin-bottom: 14px;
+}
+
+.auth-card input,
+.auth-card textarea,
+.form-card input,
+.form-card textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    background: var(--surface-alt);
+    color: var(--text);
+    font-family: inherit;
+}
+
+.auth-card button[type="submit"],
+.form-card button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+}
+
+.auth-card p {
+    text-align: center;
+    font-size: 14px;
+}
+
+/* ---------- Neu checkbox - Remember me (shreyasm-dev/bright-rat-5) ---------- */
+.neu-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 14px;
+    color: var(--text);
+}
+
+.neu-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.neu-checkbox .checkmark {
+    position: relative;
+    height: 1.3em;
+    width: 1.3em;
+    border-radius: 100%;
+    background: var(--neu-bg);
+    box-shadow: 3px 3px 6px var(--neu-shadow-dark),
+               -3px -3px 6px var(--neu-shadow-light);
+    transition-duration: 0.3s;
+    flex-shrink: 0;
+}
+
+.neu-checkbox input:checked ~ .checkmark {
+    box-shadow: inset 3px 3px 6px var(--neu-shadow-dark),
+                inset -3px -3px 6px var(--neu-shadow-light);
+}
+
+.neu-checkbox .checkmark:after {
+    content: "";
+    position: absolute;
+    opacity: 0;
+    left: 0.45em;
+    top: 0.22em;
+    width: 0.25em;
+    height: 0.5em;
+    border: solid var(--accent);
+    border-width: 0 0.15em 0.15em 0;
+    transform: rotate(45deg);
+    transition: opacity 0.2s;
+}
+
+.neu-checkbox input:checked ~ .checkmark:after {
+    opacity: 1;
+}
+
+/* ---------- Search page ---------- */
+
+.search-bar {
+    display: flex;
+    gap: 8px;
+    margin: 16px 0 24px;
+    background: var(--glass-bg);
+    padding: 6px 10px;
+    border-radius: 22px;
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 300ms;
+}
+
+.search-bar:focus-within {
+    box-shadow: 0 0 18px rgba(79, 70, 229, 0.35);
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 10px 14px;
+    border-radius: 20px;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    outline: none;
+}
+
+.search-bar button {
+    padding: 10px 24px;
+    font-size: 14px;
+}
+
+/* ---------- Profile card ---------- */
+
+.profile-card {
+    padding: 20px;
+    margin-bottom: 24px;
+}
+
+/* ---------- Floating action button (Create Post shortcut) ---------- */
+
+.fab-button {
+    position: fixed;
+    right: 24px;
+    bottom: 90px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    line-height: 1;
+    text-decoration: none;
+    filter: drop-shadow(var(--shadow-fab));
+    z-index: 20;
+    transition: transform 0.15s ease;
+}
+
+.fab-button:hover {
+    background: var(--accent-hover);
+    transform: scale(1.06);
+}
+
+/* The rules below are strictly functional (grid layout / popup positioning)
+   so the video/image feed and post popup actually work, restyled to match
+   the design system above. */
+
+.feed-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+}
+
+.grid-cell {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    background: var(--surface-alt);
+}
+
+.grid-cell img,
+.grid-cell video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.grid-cell .text-cell {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    padding: 4px;
+    box-sizing: border-box;
+}
+
+.grid-cell .like-badge {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    right: auto;
+    background: var(--overlay-badge-bg);
+    color: #fff;
+    font-size: 12px;
+    padding: 6px 14px;
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(2px);
+}
+
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.popup-box {
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 16px;
+    color: var(--text);
+}
+
+/* ---------- Glossy glass inputs & comments ---------- */
+.glass-input,
+.auth-card input:not([type="file"]),
+.auth-card textarea,
+.form-card input:not([type="file"]),
+.form-card textarea,
+.feed-add-comment input,
+.header-search input,
+.search-bar input {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 22px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: var(--text);
+    box-shadow: inset 1px 1px 3px var(--glass-highlight),
+                inset -1px -1px 3px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 300ms, border-color 300ms;
+}
+
+.glass-input:focus,
+.auth-card input:not([type="file"]):focus,
+.auth-card textarea:focus,
+.form-card input:not([type="file"]):focus,
+.form-card textarea:focus,
+.feed-add-comment input:focus,
+.header-search input:focus,
+.search-bar input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 14px rgba(79, 70, 229, 0.25),
+                inset 1px 1px 3px var(--glass-highlight);
+}
+
+.auth-card input::placeholder,
+.auth-card textarea::placeholder,
+.form-card input::placeholder,
+.form-card textarea::placeholder,
+.feed-add-comment input::placeholder,
+.header-search input::placeholder,
+.search-bar input::placeholder {
+    color: var(--text);
+    opacity: 0.6;
+}
+
+.feed-post-comments {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 12px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.feed-comment-content {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 18px;
+    padding: 8px 12px;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* ============================================================
+   Mobile / responsive additions
+   ============================================================ */
+
+/* ---------- Hamburger menu ---------- */
+.mobile-menu {
+    display: none;
+    position: fixed;
+    top: 62px;
+    right: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-icon);
+    padding: 8px;
+    min-width: 180px;
+    max-width: calc(100vw - 32px);
+    z-index: 40;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.mobile-menu.open {
+    display: flex;
+}
+
+.mobile-menu a,
+.mobile-menu button,
+.mobile-menu .theme-switch {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px 12px;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.mobile-menu a:hover,
+.mobile-menu button:hover {
+    background: var(--surface-alt);
+}
+
+/* ---------- Header pill layout (logo + search + hamburger) ---------- */
+.app-header .bar-pill {
+    justify-content: space-between;
+    min-width: 280px;
+    width: auto;
+    max-width: min(800px, calc(100vw - 32px));
+}
+
+.app-header .header-search {
+    flex: 1;
+    max-width: 300px;
+    margin: 0 10px;
+}
+
+.app-header .header-search input {
+    width: 100%;
+    min-width: 0;
+}
+
+/* ---------- Mobile vertical feed (renderFeed) ---------- */
+.feed-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 16px;
+}
+
+.feed-post {
+    overflow: hidden;
+    box-shadow: 0 25px 25px rgba(0, 0, 0, 0.12),
+                inset 0 1px 0 var(--glass-highlight);
+}
+
+.feed-post-media {
+    width: 100%;
+    display: block;
+    background: #000;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.feed-post-media img,
+.feed-post-media video {
+    width: 100%;
+    height: auto;
+    max-height: 70vh;
+    object-fit: contain;
+    display: block;
+}
+
+.feed-post-body {
+    padding: 12px 16px 16px;
+}
+
+.feed-post-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.feed-post-header img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+.feed-post-header a {
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--text);
+}
+
+.feed-post-content {
+    margin-bottom: 12px;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.feed-post-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+}
+
+.feed-post-actions button {
+    padding: 8px 16px;
+    font-size: 13px;
+}
+
+.feed-post-actions .delete-post-btn {
+    background: #dc2626;
+}
+
+.feed-post-actions .delete-post-btn:hover {
+    background: #b91c1c;
+}
+
+.feed-post-comments {
+    border-top: 1px solid var(--glass-border);
+    padding-top: 12px;
+}
+
+.feed-post-comments h4 {
+    margin: 0 0 10px;
+    font-size: 14px;
+    color: var(--text);
+}
+
+.feed-comment {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.feed-comment img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    display: block;
+}
+
+.feed-comment-content {
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--text);
+    word-wrap: break-word;
+}
+
+.feed-comment-content strong {
+    margin-right: 6px;
+}
+
+.feed-comment-content .delete-comment-btn {
+    margin-left: 6px;
+    padding: 2px 6px;
+    border: none;
+    background: transparent;
+    color: #ef4444;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.feed-add-comment {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.feed-add-comment input {
+    flex: 1;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    background: var(--surface-alt);
+    color: var(--text);
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.feed-add-comment button {
+    padding: 10px 18px;
+    font-size: 14px;
+}
+
+/* ---------- Mobile specific tweaks ---------- */
+@media (max-width: 768px) {
+    body {
+        padding-top: 70px;
+    }
+
+    .bar-wing {
+        display: none;
+    }
+
+    .app-header {
+        padding: 8px 0 0;
+    }
+
+    .app-header .bar-pill {
+        width: calc(100% - 24px);
+        max-width: calc(100% - 24px);
+        padding: 8px 10px;
+        gap: 8px;
+    }
+
+    .app-header .header-search {
+        max-width: none;
+        margin: 0;
+        padding: 3px 6px;
+    }
+
+    .app-header .header-search input {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .bottom-nav-island {
+        bottom: 8px;
+    }
+
+    .bottom-nav-island .bar-pill {
+        padding: 6px 8px;
+        gap: 4px;
+    }
+
+    .bottom-nav-island a {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .page-container {
+        padding: 8px 12px 100px;
+    }
+
+    .fab-button {
+        bottom: 78px;
+        right: 14px;
+        width: 44px;
+        height: 44px;
+        font-size: 22px;
+    }
+
+    .auth-page {
+        min-height: calc(100vh - 70px);
+        padding: 16px;
+    }
+
+    .auth-card,
+    .form-card {
+        padding: 24px 20px;
+    }
+
+    .popup-box {
+        width: calc(100% - 24px);
+        max-height: calc(100vh - 24px);
+        padding: 14px;
+    }
+
+    .profile-card {
+        padding: 16px;
+    }
+
+    #profile-info img {
+        width: 64px;
+        height: 64px;
+    }
+
+    .search-bar {
+        flex-direction: column;
+    }
+
+    .search-bar button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 360px) {
+    .bottom-nav-island a {
+        padding: 8px 6px;
+        font-size: 11px;
+    }
+
+    .logo-img {
+        height: 26px;
+    }
+}
